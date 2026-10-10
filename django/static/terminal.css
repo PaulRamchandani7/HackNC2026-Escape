@@ -1,0 +1,261 @@
+.terminal-page {
+  min-height: 100svh;
+  background: #07111c;
+}
+
+.terminal-grid {
+  display: grid;
+  min-height: calc(100svh - 57px);
+}
+
+@media (min-width: 1024px) {
+  .terminal-grid {
+    grid-template-columns: minmax(320px, 440px) 1fr;
+  }
+}
+
+.brief {
+  position: relative;
+  min-width: 0;
+  overflow: auto;
+  padding: 1.5rem 1.25rem;
+  border-bottom: 1px solid rgba(79, 209, 232, 0.1);
+}
+
+@media (min-width: 1024px) {
+  .brief {
+    border-right: 1px solid rgba(79, 209, 232, 0.1);
+    border-bottom: 0;
+  }
+}
+
+.brief .rain {
+  opacity: 0.2;
+}
+
+.brief-body {
+  position: relative;
+}
+
+.boot-line {
+  overflow: hidden;
+  margin: 0;
+  border-right: 1px solid #4fd1e8;
+  color: #4fd1e8;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  white-space: nowrap;
+  animation: boot 1.1s steps(28, end) both;
+}
+
+@keyframes boot {
+  from {
+    width: 0;
+  }
+  to {
+    width: 18ch;
+  }
+}
+
+.chapter {
+  margin: 1rem 0 0;
+  color: #f4b860;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.brief h1 {
+  margin: 0.5rem 0 0;
+  color: #fff;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.room-story {
+  margin: 0.75rem 0 0;
+  color: #cbd5e1;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+.brief h2 {
+  margin: 1.5rem 0 0;
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.75rem;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.625rem;
+  border: 1px solid rgba(79, 209, 232, 0.3);
+  border-radius: 999px;
+  color: #4fd1e8;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.badge-easy {
+  border-color: rgba(53, 208, 161, 0.4);
+  color: #35d0a1;
+}
+
+.badge-medium {
+  border-color: rgba(244, 184, 96, 0.4);
+  color: #f4b860;
+}
+
+.badge-hard {
+  border-color: rgba(239, 100, 97, 0.4);
+  color: #ef6461;
+}
+
+.statement {
+  margin: 1rem 0 0;
+  overflow: auto;
+  padding: 1rem;
+  border: 1px solid rgba(79, 209, 232, 0.1);
+  border-radius: 0.75rem;
+  background: #101f30;
+  color: #e2e8f0;
+  font-family: Outfit, system-ui, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  white-space: pre-wrap;
+}
+
+.disclaimer {
+  margin: 0.75rem 0 0;
+  color: #64748b;
+  font-size: 0.75rem;
+}
+
+.problem-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #4fd1e8;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.samples {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.samples pre {
+  margin: 0;
+  overflow: auto;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  color: #cbd5e1;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+}
+
+.hint-button {
+  margin-top: 1.25rem;
+}
+
+.hint-button:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.hint {
+  margin: 0.5rem 0 0;
+  padding: 0.5rem 0.75rem;
+  border-left: 2px solid #f4b860;
+  background: rgba(244, 184, 96, 0.1);
+  font-size: 0.875rem;
+}
+
+.deck-link {
+  display: block;
+  margin-top: 1.5rem;
+  color: #94a3b8;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.editor-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 1rem;
+  background: #0b1622;
+}
+
+.solved-note {
+  margin: 0;
+  color: #35d0a1;
+  font-size: 0.875rem;
+}
+
+.editor-shell {
+  overflow: hidden;
+  height: 48vh;
+  border: 1px solid rgba(79, 209, 232, 0.2);
+  border-radius: 0.75rem;
+}
+
+.editor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.editor-actions .btn:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.terminal-error {
+  margin: 0;
+  color: #ef6461;
+}
+
+.terminal-message {
+  margin: 0;
+  color: #4fd1e8;
+}
+
+.sealed {
+  display: grid;
+  flex: 1;
+  place-items: center;
+  text-align: center;
+}
+
+.sealed h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.sealed p {
+  max-width: 28rem;
+  margin: 0.5rem 0 0;
+  color: #94a3b8;
+}
+
+.sealed .btn {
+  margin-top: 1rem;
+}

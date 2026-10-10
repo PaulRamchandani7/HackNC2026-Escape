@@ -1,0 +1,87 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CODE: ADRIFT — {{ plan.name }}</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'landing.css' %}" />
+    <link rel="stylesheet" href="{% static 'ship.css' %}" />
+    <link rel="stylesheet" href="{% static 'terminal.css' %}" />
+  </head>
+  <body>
+    <main class="terminal-page">
+      <header class="voyage-bar">
+        <a class="display" href="/ship/">CODE: ADRIFT</a>
+        <div class="voyage-meta">
+          <span>{{ plan.name }}</span>
+          <time id="elapsed" datetime="PT0S">00:00</time>
+        </div>
+      </header>
+      <div class="terminal-grid">
+        <aside class="brief">
+          <div class="rain" aria-hidden="true"></div>
+          <div class="brief-body">
+            <p class="boot-line">SYSTEM DIAGNOSTIC</p>
+            <p class="chapter">{{ plan.chapter }}</p>
+            <h1 class="display">{{ plan.name }}</h1>
+            <p class="room-story">{{ plan.story }}</p>
+            <h2>#{{ plan.question_id }} {{ plan.title }}</h2>
+            <div class="badges">
+              <span class="badge badge-{{ plan.difficulty|lower }}">{{ plan.difficulty }}</span>
+              <span class="badge">{{ plan.category }}</span>
+              <span class="badge">{{ plan.metadata_source }} metadata</span>
+            </div>
+            <pre class="statement">{{ plan.statement }}</pre>
+            <p class="disclaimer">Original diagnostic brief. LeetCode's statement is not copied here.</p>
+            <a class="problem-link" href="{{ plan.leetcode_url }}" target="_blank" rel="noreferrer">Open the original problem</a>
+            <div class="samples">
+              {% for sample in samples %}
+                <pre>{{ sample.label }}: {{ sample.args_json }} → {{ sample.expected_json }}</pre>
+              {% endfor %}
+            </div>
+            <button class="btn btn-outline hint-button" id="hint-button" type="button">
+              Hint 1 of {{ plan.hints|length }}
+            </button>
+            <div id="hints"></div>
+            {% if locked %}
+              <p class="terminal-error" id="terminal-error" hidden></p>
+            {% endif %}
+            <a class="deck-link" href="/ship/">Return to the deck plan</a>
+          </div>
+        </aside>
+        <section class="editor-pane">
+          {% if locked %}
+            <div class="sealed">
+              <div>
+                <h2 class="display">Compartment sealed</h2>
+                <p>The previous diagnostic has to be accepted by the ship before this door opens.</p>
+                <a class="btn" href="/ship/">Back to the deck</a>
+              </div>
+            </div>
+          {% else %}
+            <div class="editor-shell" id="code-editor"></div>
+            <div class="editor-actions">
+              <button class="btn btn-outline" id="reset-code" type="button">Reset Code</button>
+              <button class="btn btn-outline" id="run-code" type="button">Run Code</button>
+              <button class="btn" id="submit-code" type="button">Submit Solution</button>
+            </div>
+            <p class="terminal-error" id="terminal-error" hidden></p>
+          {% endif %}
+        </section>
+      </div>
+    </main>
+    {{ payload|json_script:"terminal-data" }}
+    {% if not locked %}
+      <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js"></script>
+    {% endif %}
+    <script src="{% static 'terminal.js' %}"></script>
+  </body>
+</html>

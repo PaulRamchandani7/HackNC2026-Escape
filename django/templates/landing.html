@@ -1,0 +1,81 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CODE: ADRIFT — Lost at sea. Trapped aboard. Code your way home.</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'landing.css' %}" />
+  </head>
+  <body>
+    <main class="ocean-stage">
+      <div class="rain"></div>
+      <div class="hero">
+        <div>
+          <p class="kicker">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22V8" />
+              <path d="M5 12H2a10 10 0 0 0 20 0h-3" />
+              <circle cx="12" cy="5" r="3" />
+            </svg>
+            North Atlantic · 03:17
+          </p>
+          <h1 class="display">CODE: ADRIFT</h1>
+          <p class="tagline">Lost at sea. Trapped aboard. Code your way home.</p>
+          <p class="story">
+            You wake up alone on a drifting ship. Its systems are failing, its doors are locked,
+            and a storm is closing in. The only way to survive is to restore the ship's
+            systems—one line of code at a time.
+          </p>
+          <div class="actions">
+            <a class="btn btn-lg" href="/intro/">Begin Your Escape</a>
+            <button class="btn btn-lg btn-outline" id="how-to-open" type="button">How to Play</button>
+          </div>
+        </div>
+        <div class="ship">
+          <div class="radar" aria-hidden="true">
+            <div class="radar-sweep"></div>
+          </div>
+          <svg viewBox="0 0 640 420" role="img" aria-label="Abandoned cargo ship in a storm">
+            <rect width="640" height="420" fill="#07111C" />
+            <path d="M0 250 C120 230 200 280 320 250 C460 214 520 290 640 240 L640 420 L0 420 Z" fill="#0c1c2c" />
+            <path d="M40 250 L90 310 L520 310 L590 230 L500 214 L500 150 L390 150 L390 200 L120 214 Z" fill="#101F30" stroke="#4FD1E8" stroke-opacity="0.5" />
+            <path d="M500 150 L560 150 L560 214 L500 214 Z" fill="#172A3D" stroke="#F4B860" stroke-opacity="0.8" />
+            <rect class="flicker" x="518" y="168" width="22" height="14" fill="#F4B860" />
+            <rect x="160" y="230" width="28" height="16" fill="#4FD1E8" opacity="0.25" />
+            <rect x="230" y="230" width="28" height="16" fill="#4FD1E8" opacity="0.15" />
+            <rect x="300" y="230" width="28" height="16" fill="#4FD1E8" opacity="0.1" />
+            <path d="M70 120 C140 80 180 150 250 100" fill="none" stroke="#d7e4ef" stroke-opacity="0.15" />
+            <path d="M300 90 C380 40 430 120 520 70" fill="none" stroke="#d7e4ef" stroke-opacity="0.12" />
+          </svg>
+        </div>
+      </div>
+      <div class="waves" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="how-to" id="how-to" hidden>
+        <div class="how-to-panel">
+          <h2 class="display">How to play</h2>
+          <ol>
+            <li>Wake up aboard the drifting cargo ship and follow the emergency broadcast.</li>
+            <li>Open the only available compartment on the deck plan.</li>
+            <li>Each terminal is a real LeetCode problem. The brief and tests are original. The title and link come from LeetCode.</li>
+            <li>Run checks the samples. Submit runs hidden tests on the server. A room opens only after that verdict is accepted.</li>
+            <li>Restore five systems — quarters, engines, radio, navigation, and the bridge — before the storm takes the ship.</li>
+          </ol>
+          <button class="btn" id="how-to-close" type="button">Close</button>
+        </div>
+      </div>
+    </main>
+    <script src="{% static 'landing.js' %}"></script>
+  </body>
+</html>
