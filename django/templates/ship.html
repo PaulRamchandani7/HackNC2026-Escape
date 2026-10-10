@@ -30,9 +30,12 @@
             <p class="eyebrow">Deck plan</p>
             <h1 class="display">The drifting hull</h1>
           </div>
-          <button class="btn btn-outline" id="restart" type="button">Restart Journey</button>
+          <form method="post" action="/ship/restart/">
+            {% csrf_token %}
+            <button class="btn btn-outline" type="submit">Restart Journey</button>
+          </form>
         </div>
-        <p class="notice" id="notice" hidden></p>
+        <p class="notice" id="notice" {% if not assigned_notice %}hidden{% endif %}>{% if assigned_notice %}A new diagnostic sequence has been assigned.{% endif %}</p>
         <div class="blueprint-scroll">
           <div class="blueprint-sheet">
             <div class="blueprint-grid"></div>

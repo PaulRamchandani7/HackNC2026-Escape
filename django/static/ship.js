@@ -40,7 +40,6 @@ let started = Date.now()
 
 const clock = document.getElementById("elapsed")
 const progressLabel = document.getElementById("progress-label")
-const notice = document.getElementById("notice")
 
 function formatDuration(ms) {
   const total = Math.max(0, Math.floor(ms / 1000))
@@ -96,14 +95,6 @@ document.querySelectorAll(".room").forEach((button) => {
     if (button.disabled) return
     window.location.href = `/room/${button.dataset.room}/`
   })
-})
-
-document.getElementById("restart").addEventListener("click", () => {
-  solved = new Set()
-  started = Date.now()
-  notice.hidden = false
-  notice.textContent = "A new diagnostic sequence has been assigned."
-  paint()
 })
 
 window.setInterval(() => {

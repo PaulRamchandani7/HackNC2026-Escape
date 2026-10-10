@@ -22,8 +22,11 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('ship/', views.ship, name='ship'),
+    path('ship/restart/', views.ship_restart, name='ship-restart'),
     path('room/<int:room>/', views.room, name='room'),
     path('room/<int:room>/hint/', views.room_hint, name='room-hint'),
+    path('room/<int:room>/run/', views.room_run, name='room-run'),
+    path('room/<int:room>/submit/', views.room_submit, name='room-submit'),
     path('health/', views.health, name='health'),
     path('admin/', admin.site.urls),
 ]

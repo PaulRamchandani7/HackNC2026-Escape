@@ -236,6 +236,64 @@
   color: #4fd1e8;
 }
 
+.executor-note {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.75rem;
+}
+
+.results {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.result {
+  padding: 0.5rem 0.75rem;
+  border-left: 2px solid #35d0a1;
+  border-radius: 0.5rem;
+  background: #101f30;
+  font-size: 0.875rem;
+}
+
+.result.is-fail {
+  border-left-color: #ef6461;
+}
+
+.result .detail {
+  color: #94a3b8;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+}
+
+.result .fault {
+  color: #ef6461;
+}
+
+.program-output {
+  margin: 0;
+  overflow: auto;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.4);
+  color: #cbd5e1;
+  font-size: 0.75rem;
+}
+
+.program-output.is-danger {
+  color: #ef6461;
+}
+
+.program-output span {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #64748b;
+}
+
+.terminal-message {
+  margin: 0;
+  color: #4fd1e8;
+}
+
 .sealed {
   display: grid;
   flex: 1;
