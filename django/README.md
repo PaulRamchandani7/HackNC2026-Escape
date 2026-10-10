@@ -2,7 +2,7 @@
 
 The React site at the repository root is unchanged and still runs with `npm run dev`.
 
-This app serves the landing page, the deck plan, and the coding terminal. It loads LeetCode titles and links, and sends solutions to Piston for grading. Doors still do not unlock.
+This app serves the landing page, the story introduction, the deck plan, the coding terminal, and the finale. It loads LeetCode titles and links, and sends solutions to Piston for grading. An accepted hidden-test submit opens the next compartment. The React app remains in the repository as the visual reference.
 
 ## Setup
 
@@ -37,9 +37,13 @@ Expected body:
 {"ok": true, "service": "code-adrift"}
 ```
 
-`/` is the landing page. `/ship/` is the deck plan. `/room/1/` through `/room/5/` are the coding terminals. `/health/` stays a JSON check. `/admin/` is Django's admin site and has no users until a later phase.
+`/` is the landing page. `/intro/` is the four-scene briefing. `/ship/` is the deck plan. `/room/1/` through `/room/5/` are the coding terminals. `/finale/` is the escape card. `/health/` stays a JSON check. `/admin/` is Django's admin site.
 
-The story introduction is still the React app on port 5173. **Begin Your Escape** links to `/intro/`, which is not built yet. On the deck plan, Crew Quarters is open and the other rooms are sealed. Restart Journey asks LeetCode for a new set of five problems. Opening Crew Quarters goes to `/room/1/`. Rooms 2–5 show a sealed compartment if you open the URL directly. Run grades the visible samples through Piston. Submit grades the hidden tests through Piston and does not open the next door. A saved voyage's Continue Journey button stays on the React site. The editor loads Monaco from the jsDelivr CDN.
+**Begin Your Escape** opens the briefing. The last scene saves a player and a five-room mission, then opens the deck. Without that mission, the deck, rooms, and finale send you home. A finished mission on the deck goes to the finale. The landing page shows **Continue Journey** while a mission is active and **Review Your Escape** after it is complete.
+
+Crew Quarters starts open. Each later door stays sealed until the previous room's hidden tests are accepted. Run grades the visible samples through Piston and does not unlock anything. Submit grades the hidden tests through Piston. A pass records the attempt, opens the next compartment, and, on the fifth room, freezes the escape timer. Restart Journey and Play Again abandon the active mission and assign a new five, skipping problems this player has already solved when another match exists. Hints are remembered, and a repeated reveal does not increase the hint count. Draft code stays in this browser under `adrift.draft.<slug>`. The editor loads Monaco from the jsDelivr CDN.
+
+The public Piston host is whitelist-only, so a live solution cannot be accepted until `PISTON_URL` points at a Piston instance you run. This app does not run submitted code itself.
 
 LeetCode metadata is cached in the Django SQLite database. If LeetCode is unavailable, the last cache or the built-in seed titles are used. Problem statements are the original briefs, not LeetCode's text.
 

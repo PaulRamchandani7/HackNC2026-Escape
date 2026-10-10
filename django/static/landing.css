@@ -23,6 +23,10 @@ body {
   font-family: Outfit, system-ui, sans-serif;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 .display {
   font-family: Fraunces, Georgia, serif;
   font-optical-sizing: auto;
@@ -170,6 +174,16 @@ body {
 
 .btn-outline:hover {
   background: rgba(79, 209, 232, 0.1);
+}
+
+.btn-amber {
+  background: #f4b860;
+  color: #07111c;
+  box-shadow: none;
+}
+
+.btn-amber:hover {
+  background: #ffd18a;
 }
 
 .ship {

@@ -1,0 +1,38 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CODE: ADRIFT — Mission</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'landing.css' %}" />
+    <link rel="stylesheet" href="{% static 'intro.css' %}" />
+  </head>
+  <body {% if error %}data-boot-error="1"{% endif %}>
+    <main class="intro" id="intro">
+      <div class="rain" id="intro-rain" hidden></div>
+      <div class="intro-copy">
+        <button class="skip" id="skip" type="button">Skip intro</button>
+        <div id="scene"></div>
+        <div class="intro-actions">
+          <button class="btn" id="continue" type="button">Continue</button>
+          <form method="post" action="/intro/start/" id="enter-form" hidden>
+            {% csrf_token %}
+            <button class="btn" id="enter" type="submit">Enter the First Room</button>
+          </form>
+        </div>
+        {% if error %}
+          <p class="intro-error">{{ error }}</p>
+        {% endif %}
+      </div>
+    </main>
+    <script src="{% static 'intro.js' %}"></script>
+  </body>
+</html>

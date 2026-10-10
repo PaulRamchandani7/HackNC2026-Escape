@@ -1,0 +1,57 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CODE: ADRIFT — You made it home</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'landing.css' %}" />
+    <link rel="stylesheet" href="{% static 'finale.css' %}" />
+  </head>
+  <body>
+    <main class="finale">
+      <div class="rain"></div>
+      <div class="finale-copy">
+        <svg viewBox="0 0 640 180" aria-hidden="true">
+          <path d="M20 120 L80 150 L560 150 L620 110 L540 96 L540 50 L430 50 L430 90 L90 100 Z" fill="#101F30" stroke="#35D0A1" />
+          <rect x="470" y="62" width="40" height="18" fill="#4FD1E8" opacity="0.8" />
+          <path d="M0 150 C160 130 240 170 400 140 C500 122 560 160 640 140 L640 180 L0 180 Z" fill="#f4b860" opacity="0.35" />
+        </svg>
+        <p class="finale-kicker">All systems restored</p>
+        <h1 class="display">You made it home</h1>
+        <p class="finale-story">
+          You restored the ship, navigated through the storm, and escaped using nothing but your
+          problem-solving skills.
+        </p>
+        <p class="finale-course">COURSE SET FOR HOME. YOU ESCAPED.</p>
+        <section class="escape-card">
+          <p>Escape card</p>
+          <dl>
+            <div><dt>Problems solved</dt><dd>{{ solved }}</dd></div>
+            <div><dt>Escape time</dt><dd>{{ elapsed_label }}</dd></div>
+            <div><dt>Hints used</dt><dd>{{ hints_used }}</dd></div>
+            <div><dt>Attempts</dt><dd>{{ attempts }}</dd></div>
+            <div><dt>Difficulty</dt><dd>{{ difficulties }}</dd></div>
+          </dl>
+        </section>
+        <div class="finale-actions">
+          <form method="post" action="/finale/again/">
+            {% csrf_token %}
+            <button class="btn" type="submit">Play Again</button>
+          </form>
+          <button class="btn btn-amber" id="share" type="button">Share Your Escape</button>
+          <a class="btn btn-outline" href="/">Return to Home</a>
+        </div>
+      </div>
+    </main>
+    {{ card|json_script:"escape-card" }}
+    <script src="{% static 'finale.js' %}"></script>
+  </body>
+</html>

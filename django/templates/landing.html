@@ -37,6 +37,11 @@
           <div class="actions">
             <a class="btn btn-lg" href="/intro/">Begin Your Escape</a>
             <button class="btn btn-lg btn-outline" id="how-to-open" type="button">How to Play</button>
+            {% if mission.status == "active" %}
+              <a class="btn btn-lg btn-amber" href="/ship/">Continue Journey</a>
+            {% elif mission.status == "completed" %}
+              <a class="btn btn-lg btn-amber" href="/finale/">Review Your Escape</a>
+            {% endif %}
           </div>
         </div>
         <div class="ship">

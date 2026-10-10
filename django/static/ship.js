@@ -35,8 +35,10 @@ const systems = [
   },
 ]
 
-let solved = new Set()
-let started = Date.now()
+const voyage = JSON.parse(document.getElementById("voyage-data").textContent)
+let solved = new Set(voyage.solved)
+const started = voyage.startedAt
+const frozen = voyage.escapeMs
 
 const clock = document.getElementById("elapsed")
 const progressLabel = document.getElementById("progress-label")
@@ -97,9 +99,13 @@ document.querySelectorAll(".room").forEach((button) => {
   })
 })
 
-window.setInterval(() => {
-  clock.textContent = formatDuration(Date.now() - started)
-  clock.dateTime = `PT${Math.floor((Date.now() - started) / 1000)}S`
-}, 1000)
+function tick() {
+  const elapsed = frozen != null ? frozen : Date.now() - started
+  clock.textContent = formatDuration(elapsed)
+  clock.dateTime = `PT${Math.floor(elapsed / 1000)}S`
+}
+
+tick()
+window.setInterval(tick, 1000)
 
 paint()

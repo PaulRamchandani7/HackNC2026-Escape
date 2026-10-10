@@ -22,7 +22,7 @@
         <a class="display" href="/ship/">CODE: ADRIFT</a>
         <div class="voyage-meta">
           <span>{{ plan.name }}</span>
-          <time id="elapsed" datetime="PT0S">00:00</time>
+          <time id="elapsed" datetime="PT0S">{{ elapsed_label }}</time>
         </div>
       </header>
       <div class="terminal-grid">
@@ -47,10 +47,14 @@
                 <pre>{{ sample.label }}: {{ sample.args_json }} → {{ sample.expected_json }}</pre>
               {% endfor %}
             </div>
-            <button class="btn btn-outline hint-button" id="hint-button" type="button">
-              Hint 1 of {{ plan.hints|length }}
+            <button class="btn btn-outline hint-button" id="hint-button" type="button" {% if plan.revealed_hints|length >= plan.hints|length %}disabled{% endif %}>
+              Hint {{ plan.revealed_hints|length|add:1 }} of {{ plan.hints|length }}
             </button>
-            <div id="hints"></div>
+            <div id="hints">
+              {% for hint in plan.revealed_hints %}
+                <p class="hint">Hint {{ forloop.counter }}: {{ hint }}</p>
+              {% endfor %}
+            </div>
             {% if locked %}
               <p class="terminal-error" id="terminal-error" hidden></p>
             {% endif %}
@@ -67,11 +71,14 @@
               </div>
             </div>
           {% else %}
+            {% if plan.solved %}
+              <p class="restored-note">This system is already restored. You can review the code.</p>
+            {% endif %}
             <div class="editor-shell" id="code-editor"></div>
             <div class="editor-actions">
               <button class="btn btn-outline" id="reset-code" type="button">Reset Code</button>
               <button class="btn btn-outline" id="run-code" type="button">Run Code</button>
-              <button class="btn" id="submit-code" type="button">Submit Solution</button>
+              <button class="btn" id="submit-code" type="button" {% if plan.solved %}disabled{% endif %}>Submit Solution</button>
             </div>
             <p class="terminal-error" id="terminal-error" hidden></p>
             <p class="terminal-message" id="terminal-message" hidden></p>
@@ -82,6 +89,9 @@
         </section>
       </div>
     </main>
+    <div class="restore-overlay" id="restore-overlay" hidden>
+      <p class="display" id="restore-text"></p>
+    </div>
     {{ payload|json_script:"terminal-data" }}
     {% if not locked %}
       <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js"></script>

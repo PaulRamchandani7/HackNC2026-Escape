@@ -21,8 +21,12 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('intro/', views.intro, name='intro'),
+    path('intro/start/', views.intro_start, name='intro-start'),
     path('ship/', views.ship, name='ship'),
     path('ship/restart/', views.ship_restart, name='ship-restart'),
+    path('finale/', views.finale, name='finale'),
+    path('finale/again/', views.finale_again, name='finale-again'),
     path('room/<int:room>/', views.room, name='room'),
     path('room/<int:room>/hint/', views.room_hint, name='room-hint'),
     path('room/<int:room>/run/', views.room_run, name='room-run'),

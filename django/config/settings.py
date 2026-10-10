@@ -48,6 +48,7 @@ if DEBUG and "testserver" not in ALLOWED_HOSTS:
 # Application definition
 
 INSTALLED_APPS = [
+    'config.apps.AdriftConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

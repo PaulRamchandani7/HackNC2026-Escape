@@ -1,6 +1,7 @@
 const data = JSON.parse(document.getElementById("terminal-data").textContent)
 const draftKey = `adrift.draft.${data.slug}`
-const started = Date.now()
+const started = data.startedAt
+const frozen = data.escapeMs
 const clock = document.getElementById("elapsed")
 const hintButton = document.getElementById("hint-button")
 const hintList = document.getElementById("hints")
@@ -9,8 +10,9 @@ const messageLine = document.getElementById("terminal-message")
 const executorNote = document.getElementById("executor-note")
 const resultsBox = document.getElementById("results")
 const outputsBox = document.getElementById("outputs")
-let hintsShown = 0
+let hintsShown = (data.revealedHints || []).length
 let editor = null
+let leaving = false
 
 function formatDuration(ms) {
   const total = Math.max(0, Math.floor(ms / 1000))
@@ -33,11 +35,14 @@ function showMessage(text) {
   messageLine.textContent = text || ""
 }
 
-window.setInterval(() => {
-  const elapsed = Date.now() - started
+function tick() {
+  const elapsed = frozen != null ? frozen : Date.now() - started
   clock.textContent = formatDuration(elapsed)
   clock.dateTime = `PT${Math.floor(elapsed / 1000)}S`
-}, 1000)
+}
+
+tick()
+window.setInterval(tick, 1000)
 
 hintButton.addEventListener("click", async () => {
   if (hintsShown >= data.hintCount) return
@@ -186,11 +191,25 @@ async function judge(kind, button, idleLabel, busyLabel) {
       return
     }
     renderResults(body, kind)
+    if (kind === "submit" && body.passedAll) {
+      leaving = true
+      const overlay = document.getElementById("restore-overlay")
+      const text = document.getElementById("restore-text")
+      if (overlay && text) {
+        text.textContent = body.success || data.success
+        overlay.hidden = false
+      }
+      window.setTimeout(() => {
+        window.location.href = body.completed ? "/finale/" : "/ship/"
+      }, 1600)
+    }
   } catch (err) {
     showError(err instanceof Error ? err.message : kind === "run" ? "Run failed" : "Submit failed")
   } finally {
-    button.disabled = false
-    button.textContent = idleLabel
+    if (!leaving) {
+      button.disabled = data.solved && kind === "submit" ? true : false
+      button.textContent = idleLabel
+    }
   }
 }
 
