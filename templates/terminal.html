@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js"></script>
+{% endblock %}
+{% block body %}
+<main class="ocean-stage min-h-screen">
+  <header class="voyage-bar">
+    <a href="/ship" class="back">← Deck</a>
+    <span id="voyage-label">Terminal</span>
+    <span class="mono" id="voyage-timer">00:00</span>
+  </header>
+  <div class="terminal-layout page">
+    <aside class="brief">
+      <p class="kicker" id="room-name">Room {{ room }}</p>
+      <h1 class="display" id="title">Loading…</h1>
+      <p class="meta"><span id="difficulty"></span> · <a id="leetcode" href="#" target="_blank" rel="noreferrer">LeetCode</a></p>
+      <p class="story" id="story"></p>
+      <pre class="statement" id="statement"></pre>
+      <div class="samples" id="samples"></div>
+      <div class="hints">
+        <button class="btn outline" type="button" id="hint-btn">Reveal hint</button>
+        <ul id="hint-list"></ul>
+      </div>
+    </aside>
+    <section class="editor-pane">
+      <div id="editor" class="editor"></div>
+      <div class="editor-actions">
+        <button class="btn outline" type="button" id="reset">Reset</button>
+        <button class="btn" type="button" id="run">Run samples</button>
+        <button class="btn amber" type="button" id="submit">Submit</button>
+      </div>
+      <p class="notice" id="message"></p>
+      <p class="error" id="error"></p>
+      <p class="meta" id="executor"></p>
+      <div id="results" class="results"></div>
+      <div id="transition" class="transition hidden"></div>
+    </section>
+  </div>
+</main>
+{% endblock %}
+{% block scripts %}
+<script>window.ROOM_NUMBER = {{ room }};</script>
+<script src="/static/js/terminal.js"></script>
+{% endblock %}

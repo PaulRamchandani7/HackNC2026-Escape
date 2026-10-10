@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block body %}
+<main id="intro" class="ocean-stage relative min-h-screen overflow-hidden">
+  <div class="rain absolute inset-0 opacity-30"></div>
+  <div class="intro-wrap relative z-10">
+    <button type="button" class="skip" id="skip">Skip intro</button>
+    <p class="kicker" id="kicker"></p>
+    <div class="intro-lines" id="lines"></div>
+    <div class="actions">
+      <button class="btn" type="button" id="next">Continue</button>
+    </div>
+    <p class="error" id="error"></p>
+  </div>
+</main>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/intro.js"></script>
+{% endblock %}

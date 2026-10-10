@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "code-adrift"
+version = "0.1.0"
+description = "CODE: ADRIFT — a single-player Python coding escape room"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "HackNC Escape Room" }]
+dependencies = [
+  "fastapi>=0.115.0",
+  "uvicorn[standard]>=0.32.0",
+  "jinja2>=3.1.4",
+  "python-dotenv>=1.0.1",
+]
+
+[project.optional-dependencies]
+dev = []
+
+[project.scripts]
+code-adrift = "code_adrift.app:main"
+code-adrift-check = "code_adrift.self_check:main"
+
+[tool.setuptools.packages.find]
+include = ["code_adrift*"]
+
+[tool.setuptools.package-data]
+code_adrift = ["data/*.json"]
