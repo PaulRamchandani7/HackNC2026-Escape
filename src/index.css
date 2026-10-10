@@ -1,0 +1,179 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-navy: #07111c;
+  --color-steel: #101f30;
+  --color-slatecard: #172a3d;
+  --color-ocean: #4fd1e8;
+  --color-amber: #f4b860;
+  --color-signal: #35d0a1;
+  --color-alarm: #ef6461;
+  --font-display: Fraunces, Georgia, serif;
+  --font-sans: Outfit, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: #d7e4ef;
+  background: #07111c;
+  font-family: Outfit, system-ui, sans-serif;
+}
+
+.display {
+  font-family: Fraunces, Georgia, serif;
+  font-optical-sizing: auto;
+}
+
+.ocean-stage {
+  background:
+    radial-gradient(900px 420px at 50% 110%, rgba(79, 209, 232, 0.16), transparent 55%),
+    radial-gradient(700px 280px at 80% 0%, rgba(244, 184, 96, 0.08), transparent 50%),
+    linear-gradient(180deg, #07111c 0%, #0b1a2a 58%, #071018 100%);
+}
+
+.rain {
+  pointer-events: none;
+  background-image: linear-gradient(
+    110deg,
+    transparent 0 42%,
+    rgba(210, 230, 240, 0.16) 43%,
+    transparent 46%
+  );
+  background-size: 180px 220px;
+  animation: rain 1.1s linear infinite;
+  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 70%, transparent);
+}
+
+@keyframes rain {
+  from {
+    background-position: 0 -220px;
+  }
+  to {
+    background-position: -40px 220px;
+  }
+}
+
+.waves {
+  pointer-events: none;
+  height: 28vh;
+  overflow: hidden;
+}
+
+.waves span {
+  position: absolute;
+  left: -20%;
+  width: 140%;
+  height: 140px;
+  border-radius: 45%;
+  background: rgba(79, 209, 232, 0.08);
+  animation: swell 11s ease-in-out infinite;
+}
+
+.waves span:nth-child(2) {
+  top: 36px;
+  background: rgba(16, 31, 48, 0.72);
+  animation-duration: 8s;
+}
+
+.waves span:nth-child(3) {
+  top: 70px;
+  background: rgba(79, 209, 232, 0.12);
+  animation-duration: 13s;
+}
+
+@keyframes swell {
+  0%,
+  100% {
+    transform: translateX(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateX(-4%) rotate(2deg);
+  }
+}
+
+.flicker {
+  animation: flicker 3.4s steps(2, end) infinite;
+}
+
+@keyframes flicker {
+  0%,
+  82%,
+  100% {
+    opacity: 1;
+  }
+  84% {
+    opacity: 0.35;
+  }
+  88% {
+    opacity: 0.9;
+  }
+  91% {
+    opacity: 0.2;
+  }
+}
+
+.radar {
+  border: 1px solid rgba(79, 209, 232, 0.35);
+  border-radius: 999px;
+}
+
+.radar-sweep {
+  background: conic-gradient(from 0deg, transparent 0 78%, rgba(79, 209, 232, 0.55) 100%);
+  animation: sweep 4.5s linear infinite;
+}
+
+@keyframes sweep {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.pulse-line {
+  stroke-dasharray: 8 10;
+  animation: flow 1.4s linear infinite;
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: -36;
+  }
+}
+
+.boot-line {
+  overflow: hidden;
+  border-right: 1px solid #4fd1e8;
+  white-space: nowrap;
+  animation: boot 1.1s steps(28, end) both;
+}
+
+@keyframes boot {
+  from {
+    width: 0;
+  }
+  to {
+    width: 18ch;
+  }
+}
+
+.restore-flash {
+  animation: restore 0.7s ease;
+}
+
+@keyframes restore {
+  0% {
+    box-shadow: 0 0 0 rgba(53, 208, 161, 0);
+  }
+  40% {
+    box-shadow: 0 0 40px rgba(53, 208, 161, 0.55);
+  }
+  100% {
+    box-shadow: 0 0 18px rgba(53, 208, 161, 0.25);
+  }
+}
