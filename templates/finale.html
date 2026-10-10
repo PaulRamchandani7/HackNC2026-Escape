@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block body %}
+<main class="finale-stage relative min-h-screen overflow-hidden">
+  <div class="rain absolute inset-0 opacity-20"></div>
+  <div class="finale relative z-10">
+    <p class="kicker dark">All systems restored</p>
+    <h1 class="display brand">You made it home</h1>
+    <p class="lead light">
+      You restored the ship, navigated through the storm, and escaped using nothing but your
+      problem-solving skills.
+    </p>
+    <p class="mono course">COURSE SET FOR HOME. YOU ESCAPED.</p>
+    <div class="escape-card" id="card">
+      <p class="kicker">Escape card</p>
+      <dl id="stats"></dl>
+    </div>
+    <div class="actions center">
+      <button class="btn" type="button" id="again">Play Again</button>
+      <button class="btn amber" type="button" id="share">Share Your Escape</button>
+      <a class="btn outline" href="/">Return to Home</a>
+    </div>
+    <p class="error" id="error"></p>
+  </div>
+</main>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/finale.js"></script>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block body %}
+<main class="ocean-stage min-h-screen">
+  <header class="voyage-bar">
+    <span id="voyage-label">Plotting the deck…</span>
+    <span class="mono" id="voyage-timer">00:00</span>
+  </header>
+  <div class="page">
+    <div class="page-head">
+      <div>
+        <p class="kicker">Deck plan</p>
+        <h1 class="display">The drifting hull</h1>
+      </div>
+      <button class="btn outline" type="button" id="restart">Restart Journey</button>
+    </div>
+    <p class="notice" id="notice"></p>
+    <p class="error" id="error"></p>
+    <div class="room-grid" id="rooms"></div>
+    <div class="systems" id="systems"></div>
+  </div>
+</main>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/ship.js"></script>
+{% endblock %}

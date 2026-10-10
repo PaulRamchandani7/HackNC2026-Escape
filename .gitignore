@@ -1,21 +1,32 @@
 # Logs
 logs
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
+# Node (legacy; not used)
+node_modules/
+package-lock.json
+
+# Local env and runtime data
 .env
-
-data/
+*.local
+/data/
 *.db
+!code_adrift/data/
+!code_adrift/data/**
 
 # Editor directories and files
 .vscode/*
