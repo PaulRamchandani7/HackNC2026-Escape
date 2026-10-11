@@ -1,4 +1,4 @@
-# CODE: ADRIFT — Django
+# CODE: ADRIFT
 
 The React site at the repository root is unchanged and still runs with `npm run dev`.
 
