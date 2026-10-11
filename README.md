@@ -26,22 +26,66 @@ Five compartments, in order:
 
 Run checks the visible samples and does not unlock anything. Submit runs the hidden tests. The next compartment opens only when the server accepts the solution. Progress, selected problem ids, hints, and elapsed time live in the database. Code drafts stay in the browser.
 
-Anonymous guest sessions are stored in local SQLite (`data/glitchlab.db`). `supabase/schema.sql` is a matching Postgres sketch for a later hosted store. This demo does not require Supabase credentials.
+The Django app stores that progress in `django/db.sqlite3`. The React reference uses `data/glitchlab.db`. `supabase/schema.sql` is a Postgres sketch and is not required to run locally.
 
-## Execution
+## Open it locally
 
-The API tries Piston first. The public emkc.org host currently answers **401 whitelist only**, so a failed Piston call falls back to a local `python3 -I` process with an 8-second timeout. Responses include `executor: "piston"` or `executor: "local-python"`. A result is accepted only when that process returns matching outputs. The local process is real execution, not a container sandbox.
+You need Python 3.11 or newer, and Docker Desktop. The page you open is the Django app on port 8000. Submitted code is graded by a Piston container you run yourself. Django does not run that code on your machine, and the public Piston host rejects these requests.
 
-To use Piston:
+From the repository root:
+
+1. Install the app and create the database.
 
 ```bash
-docker run --rm -p 2000:2000 ghcr.io/engineer-man/piston
-# PISTON_URL=http://127.0.0.1:2000/api/v2/execute
+python3 -m venv django/.venv
+django/.venv/bin/pip install -r django/requirements.txt
+cp django/.env.example django/.env
+django/.venv/bin/python django/manage.py migrate
 ```
 
-Set `PISTON_ONLY=true` to disable the local fallback.
+2. In `django/.env`, set the judge URL:
 
-## Quick start
+```bash
+PISTON_URL=http://127.0.0.1:2000/api/v2/execute
+PISTON_LANGUAGE=python3
+PISTON_VERSION=3.10.0
+```
+
+3. Start Piston. Leave this terminal open. The extra flags are required: a plain `docker run -p 2000:2000` exits on Docker Desktop because the image cannot create its sandbox directories, and the default 3 second limit rejects the app's 8 second runs.
+
+```bash
+docker run --rm --privileged -p 2000:2000 \
+  -v piston-data:/piston \
+  --tmpfs /run:rw,nosuid,nodev,exec,mode=755 \
+  -e PISTON_RUN_TIMEOUT=10000 \
+  -e PISTON_RUN_CPU_TIME=10000 \
+  --name piston \
+  ghcr.io/engineer-man/piston
+```
+
+4. In a second terminal, install the Python runtime once. Wait until the command prints the language and version.
+
+```bash
+curl -X POST http://127.0.0.1:2000/api/v2/packages \
+  -H 'Content-Type: application/json' \
+  -d '{"language":"python","version":"3.10.0"}'
+```
+
+5. Start the site.
+
+```bash
+django/.venv/bin/python django/manage.py runserver 127.0.0.1:8000
+```
+
+6. Open [http://127.0.0.1:8000/](http://127.0.0.1:8000/). Choose **Begin Your Escape**, skip or click through the briefing, then **Enter the First Room**.
+
+`curl http://127.0.0.1:8000/health/` should return `{"ok": true, "service": "code-adrift"}`.
+
+Run checks the samples and does not unlock the next door. Submit checks the hidden tests. A pass opens the next compartment. The fifth pass ends the voyage.
+
+## React reference
+
+The original React site is still in this repository. It is not the app on port 8000.
 
 ```bash
 cp .env.example .env
@@ -49,7 +93,7 @@ npm install
 npm run dev
 ```
 
-- API: `http://localhost:8787`
 - Web: `http://localhost:5173`
+- API: `http://localhost:8787`
 
-`npm run check:judge` runs the reference solutions through the judge and requests a live LeetCode list.
+That API tries Piston, then falls back to a local `python3` process. The Django app has no local fallback. `npm run check:judge` runs the reference solutions through the React API's judge.
