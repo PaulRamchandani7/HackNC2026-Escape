@@ -35,7 +35,8 @@
             <p class="room-story">{{ plan.story }}</p>
             <h2>#{{ plan.question_id }} {{ plan.title }}</h2>
             <div class="badges">
-              <span class="badge badge-{{ plan.difficulty|lower }}">{{ plan.difficulty }}</span>
+              <span class="badge badge-{{ plan.tier|lower }}" title="Escape room difficulty">{{ plan.tier }}</span>
+              <span class="badge" title="LeetCode rating">LeetCode {{ plan.difficulty }}</span>
               <span class="badge">{{ plan.category }}</span>
               <span class="badge">{{ plan.metadata_source }} metadata</span>
             </div>
@@ -67,7 +68,9 @@
               </div>
             </div>
           {% else %}
+            <label class="answer-label" for="answer-input">Type your answer below</label>
             <div class="editor-shell" id="code-editor"></div>
+            <textarea class="answer-fallback" id="answer-input" spellcheck="false" hidden aria-label="Your answer"></textarea>
             <div class="editor-actions">
               <button class="btn btn-outline" id="reset-code" type="button">Reset Code</button>
               <button class="btn btn-outline" id="run-code" type="button">Run Code</button>
@@ -76,6 +79,7 @@
             <p class="terminal-error" id="terminal-error" hidden></p>
             <p class="terminal-message" id="terminal-message" hidden></p>
             <p class="executor-note" id="executor-note" hidden></p>
+            <a class="btn next-room" id="next-room" href="#" hidden>Continue</a>
             <div class="results" id="results"></div>
             <div id="outputs"></div>
           {% endif %}

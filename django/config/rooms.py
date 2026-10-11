@@ -23,3 +23,13 @@ def problems_for_room(topics, difficulty):
 
 def room_plan(number):
     return next((plan for plan in ROOM_PLAN if plan["room"] == number), None)
+
+
+# Escape-room difficulty tier shown to players (separate from LeetCode's own rating).
+TIERS = ("Easy", "Medium", "Hard", "Extreme")
+ROOM_TIERS = {1: "Easy", 2: "Medium", 3: "Hard", 4: "Hard", 5: "Extreme"}
+FINAL_ROOM = max(plan["room"] for plan in ROOM_PLAN)
+
+
+def room_tier(number):
+    return ROOM_TIERS.get(number, "Medium")

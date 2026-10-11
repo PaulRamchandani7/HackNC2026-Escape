@@ -119,8 +119,40 @@
 }
 
 .badge-hard {
-  border-color: rgba(239, 100, 97, 0.4);
-  color: #ef6461;
+  border-color: rgba(244, 136, 70, 0.45);
+  color: #f48846;
+}
+
+.badge-extreme {
+  border-color: rgba(239, 70, 90, 0.6);
+  color: #ff4d6a;
+  background: rgba(239, 70, 90, 0.1);
+}
+
+.answer-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #4fd1e8;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.answer-fallback {
+  width: 100%;
+  min-height: 320px;
+  padding: 1rem;
+  border: 1px solid rgba(79, 209, 232, 0.2);
+  border-radius: 8px;
+  background: #0b1622;
+  color: #e6f1f8;
+  font: 14px/1.5 "JetBrains Mono", ui-monospace, monospace;
+  resize: vertical;
+}
+
+.next-room {
+  margin-top: 1rem;
 }
 
 .statement {

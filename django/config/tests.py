@@ -70,6 +70,33 @@ class CatalogTests(TestCase):
         self.assertContains(sealed, "Compartment sealed")
 
 
+class ProgressTests(CatalogTests):
+    @patch("config.views.run_tests")
+    def test_passing_all_rooms_unlocks_leaderboard(self, run):
+        run.return_value = {"ok": True, "passedAll": True, "results": []}
+        self.assertContains(self.client.get("/room/1/"), "Easy")
+        for number in range(1, 6):
+            self.client.get(f"/room/{number}/")
+            body = self.client.post(
+                f"/room/{number}/submit/", data=json.dumps({"code": "x"}), content_type="application/json"
+            ).json()
+            if number < 5:
+                self.assertEqual(body["unlockedNext"], number + 1)
+            else:
+                self.assertTrue(body["completed"])
+        self.assertContains(self.client.get("/room/5/"), "Extreme")
+        page = self.client.get("/leaderboard/")
+        self.assertContains(page, "Post my time")
+        self.client.post("/leaderboard/", {"name": "Ada"})
+        page = self.client.get("/leaderboard/")
+        self.assertContains(page, "Ada")
+        self.assertNotContains(page, "Post my time")
+
+    def test_leaderboard_rejects_unfinished_runs(self):
+        response = self.client.post("/leaderboard/", {"name": "Cheat"})
+        self.assertContains(response, "Finish all rooms")
+
+
 class JudgeTests(TestCase):
     def test_compare_modes(self):
         self.assertTrue(matches(2, 2, "exact"))

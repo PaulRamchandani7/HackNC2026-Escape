@@ -1,7 +1,8 @@
 """Remember which LeetCode problem each compartment was assigned."""
 
 from .leetcode import select_mission_rooms
-from .rooms import BY_SLUG, room_plan
+from .progress import is_unlocked
+from .rooms import BY_SLUG, room_plan, room_tier
 
 SESSION_KEY = "adrift_voyage"
 
@@ -10,6 +11,10 @@ def current_voyage(request, *, redraw=False):
     stored = None if redraw else request.session.get(SESSION_KEY)
     if stored:
         return stored
+    if redraw:
+        from .progress import reset_progress
+
+        reset_progress(request)
     selected = select_mission_rooms([])
     payload = {
         "source": selected["source"],
@@ -53,6 +58,7 @@ def assigned_room(request, number):
         "question_id": chosen["questionId"],
         "title": chosen["title"],
         "difficulty": chosen["difficulty"],
+        "tier": room_tier(number),
         "category": chosen["category"],
         "metadata_source": chosen["source"],
         "leetcode_url": chosen["url"],
@@ -63,7 +69,7 @@ def assigned_room(request, number):
         "function_name": problem["functionName"],
         "compare": problem["compare"],
         "hidden_tests": problem["hiddenTests"],
-        "locked": number > 1,
+        "locked": not is_unlocked(request, number),
     }
 
 

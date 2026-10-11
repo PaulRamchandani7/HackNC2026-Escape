@@ -27,6 +27,7 @@ urlpatterns = [
     path('room/<int:room>/hint/', views.room_hint, name='room-hint'),
     path('room/<int:room>/run/', views.room_run, name='room-run'),
     path('room/<int:room>/submit/', views.room_submit, name='room-submit'),
+    path('leaderboard/', views.leaderboard, name='leaderboard'),
     path('health/', views.health, name='health'),
     path('admin/', admin.site.urls),
 ]

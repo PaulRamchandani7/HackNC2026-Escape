@@ -1,0 +1,15 @@
+.board-page { min-height: 100vh; }
+.board { max-width: 640px; margin: 3rem auto; padding: 0 1.5rem; }
+.board h1 { margin: 0.25rem 0 1.5rem; }
+.my-time { font-size: 1.1rem; }
+.my-time strong { color: #35d0a1; font-family: "JetBrains Mono", monospace; }
+.board-form { margin: 1.5rem 0; }
+.board-form label { display: block; margin-bottom: 0.5rem; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #4fd1e8; }
+.board-form-row { display: flex; gap: 0.75rem; }
+.board-form input { flex: 1; padding: 0.6rem 0.8rem; border: 1px solid rgba(79, 209, 232, 0.3); border-radius: 8px; background: #0b1622; color: #e6f1f8; font: inherit; }
+.board-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+.board-table th, .board-table td { padding: 0.7rem 0.5rem; text-align: left; border-bottom: 1px solid rgba(79, 209, 232, 0.12); }
+.board-table th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #6d8294; }
+.board-table td:last-child { font-family: "JetBrains Mono", monospace; }
+.board-table tr.is-mine td { color: #f4b860; font-weight: 600; }
+.empty { color: #6d8294; }

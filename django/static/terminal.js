@@ -59,10 +59,41 @@ hintButton.addEventListener("click", async () => {
   }
 })
 
+function bootFallback() {
+  // Plain text box so players can always type an answer, even if the code editor fails to load.
+  const mount = document.getElementById("code-editor")
+  const box = document.getElementById("answer-input")
+  if (!box) return
+  if (mount) mount.hidden = true
+  box.hidden = false
+  box.value = localStorage.getItem(draftKey) || data.starterCode
+  box.addEventListener("input", () => localStorage.setItem(draftKey, box.value))
+  editor = {
+    getValue: () => box.value,
+    setValue: (value) => {
+      box.value = value
+    },
+  }
+}
+
+function showNext(body) {
+  const link = document.getElementById("next-room")
+  if (!link) return
+  if (body.completed) {
+    link.href = "/leaderboard/"
+    link.textContent = "Escape complete — view the leaderboard"
+    link.hidden = false
+  } else if (body.unlockedNext) {
+    link.href = `/room/${body.unlockedNext}/`
+    link.textContent = `Continue to compartment ${body.unlockedNext}`
+    link.hidden = false
+  }
+}
+
 function bootEditor() {
   const mount = document.getElementById("code-editor")
   if (!mount || !window.require) {
-    showError("Terminal offline")
+    bootFallback()
     return
   }
   window.require.config({
@@ -98,7 +129,7 @@ function bootEditor() {
     editor.onDidChangeModelContent(() => {
       localStorage.setItem(draftKey, editor.getValue())
     })
-  })
+  }, () => bootFallback())
 }
 
 function renderResults(body, kind) {
@@ -115,6 +146,7 @@ function renderResults(body, kind) {
     )
   } else if (body.passedAll) {
     showMessage(body.success || "Hidden diagnostics passed.")
+    showNext(body)
   } else {
     showMessage(body.error || "Hidden diagnostics failed. The door stays sealed.")
   }

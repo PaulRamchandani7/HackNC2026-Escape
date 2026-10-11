@@ -1,0 +1,56 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CODE: ADRIFT — Leaderboard</title>
+    <meta name="description" content="Fastest crews to escape the ship in CODE: ADRIFT." />
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'landing.css' %}" />
+    <link rel="stylesheet" href="{% static 'ship.css' %}" />
+    <link rel="stylesheet" href="{% static 'leaderboard.css' %}" />
+  </head>
+  <body>
+    <main class="board-page">
+      <header class="voyage-bar">
+        <a class="display" href="/">CODE: ADRIFT</a>
+        <a href="/ship/">Deck plan</a>
+      </header>
+      <section class="board">
+        <p class="boot-line">FINAL LOG</p>
+        <h1 class="display">Leaderboard</h1>
+        {% if my_time %}<p class="my-time">Your escape time: <strong>{{ my_time }}</strong></p>{% endif %}
+        {% if can_save %}
+          <form method="post" class="board-form">
+            {% csrf_token %}
+            <label for="name">Name for the log</label>
+            <div class="board-form-row">
+              <input id="name" name="name" maxlength="30" required autocomplete="nickname" />
+              <button class="btn" type="submit">Post my time</button>
+            </div>
+          </form>
+        {% endif %}
+        {% if error %}<p class="terminal-error">{{ error }}</p>{% endif %}
+        {% if rows %}
+          <table class="board-table">
+            <thead><tr><th>Rank</th><th>Name</th><th>Time</th></tr></thead>
+            <tbody>
+              {% for row in rows %}
+                <tr{% if row.mine %} class="is-mine"{% endif %}>
+                  <td>{{ row.rank }}</td><td>{{ row.name }}</td><td>{{ row.time }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p class="empty">No crews have escaped yet. Be the first.</p>
+        {% endif %}
+      </section>
+    </main>
+  </body>
+</html>
